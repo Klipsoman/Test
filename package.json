@@ -2,7 +2,7 @@
   "name": "test",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://klipsoman.github.io/test/",
+  "homepage": "https://klipsoman.github.io/Test/",
   "proxy": "https://api.binance.com",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
