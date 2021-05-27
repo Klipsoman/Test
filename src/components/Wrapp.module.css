@@ -1,0 +1,9 @@
+.wrapp{
+    height: 100vh;
+}
+
+.glassSymbol{
+    text-align: center;
+    font-size: 18px;
+    color: rgb(20, 131, 204);
+}
