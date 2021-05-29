@@ -2,6 +2,8 @@ import React from "react";
 import style from "./Header.module.css";
 
 const Header = ({ setNewGlassSymbol }) => {
+
+  
   return (
     <header className={style.header}>
       <button

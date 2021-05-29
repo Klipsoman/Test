@@ -3,7 +3,7 @@ import Table from "./Table/Table";
 import style from "./Wrapp.module.css";
 
 function Wrapp(props) {
-  console.log(props);
+
   return (
     <div className={style.wrapp}>     
       <Header setNewGlassSymbol={props.setNewGlassSymbol} />

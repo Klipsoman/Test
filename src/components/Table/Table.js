@@ -3,7 +3,7 @@ import style from './Table.module.css'
 
 
 const Table = ({glass:{bidsAmount,bidsPrise,bidsTotal,asksAmount,asksPrise,asksTotal}}) => {
-
+  
 return (
 <div className={style.tableWrapper}>
         <table className={style.table}>

@@ -10,7 +10,6 @@ class MainContainer extends React.Component {
   };
 
   setNewGlassSymbol = (symbol) => {
-    console.log(1);
     this.setState({
       glassSymbol: symbol,
     });
@@ -22,11 +21,14 @@ class MainContainer extends React.Component {
   };
 
   componentDidMount() {
-    axios
+    setInterval(() => {
+      axios
       .get(`api/v3/depth?symbol=${this.state.glassSymbol}&limit=500`)
       .then((res) => res.data)
       .then((res) => this.props.getGlassAC(res.bids, res.asks))
       .catch((err) => console.log(err));
+    }, 3000);
+   
   }
 
   render() {
