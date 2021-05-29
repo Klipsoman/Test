@@ -1,6 +1,6 @@
-import * as axios from "axios";
 import React from "react";
 import { connect } from "react-redux";
+import { getGlassSymbolApi } from "../api/api.js";
 import { getGlassAC } from "../redux/glassConditionReducer.js";
 import Wrapp from "./Wrapp.js";
 
@@ -9,56 +9,31 @@ class MainContainer extends React.Component {
     glassSymbol: "BTCUSDT",
   };
 
-  // setNewGlassSymbol = (symbol) => {
-  //   this.setState({
-  //     glassSymbol: symbol,
-  //   });
-  //   axios
-  //     .get(`api/v3/depth?symbol=${symbol}&limit=500`)
-  //     .then((res) => res.data)
-  //     .then((res) => this.props.getGlassAC(res.bids, res.asks))
-  //     .catch((err) => console.log(err));
-  // };
-
-  // componentDidMount() {
-  //   setInterval(() => {
-  //     axios
-  //     .get(`api/v3/depth?symbol=${this.state.glassSymbol}&limit=500`)
-  //     .then((res) => res.data)
-  //     .then((res) => this.props.getGlassAC(res.bids, res.asks))
-  //     .catch((err) => console.log(err));
-  //   }, 3000);
-  // }
+  componentDidMount() {
+    setInterval(() => {
+      getGlassSymbolApi(this.state.glassSymbol).then((res) =>
+      this.props.getGlassAC(res.data.bids, res.data.asks)
+    );
+    }, 2000);
+  }
 
   setNewGlassSymbol = (symbol) => {
     this.setState({
       glassSymbol: symbol,
     });
-    axios
-      .get(`https://api.binance.com/api/v3/depth?symbol=${this.state.glassSymbol}&limit=500`)
-      .then((res) => res.data)
-      .then((res) => this.props.getGlassAC(res.bids, res.asks))
-      .catch((err) => console.log(err));
+    getGlassSymbolApi(symbol).then((res) =>
+      this.props.getGlassAC(res.data.bids, res.data.asks)
+    );
   };
 
-    componentDidMount() {
-      const getGlassSymbol = async () => {
-        try{
-        let res = await axios.get(`https://api.binance.com/api/v3/depth?symbol=${this.state.glassSymbol}&limit=500`)
-        let data = await res.data
-        this.props.getGlassAC(data.bids, data.asks)
-      } catch(err) {
-        console.log('Warning is: ' + err)
-      } 
-  }
-  setInterval(() => {
-    getGlassSymbol()
-  }, 3000);
-}
-
-
   render() {
-    return <Wrapp {...this.props} setNewGlassSymbol={this.setNewGlassSymbol} glassSymbol={this.state.glassSymbol}/>;
+    return (
+      <Wrapp
+        {...this.props}
+        setNewGlassSymbol={this.setNewGlassSymbol}
+        glassSymbol={this.state.glassSymbol}
+      />
+    );
   }
 }
 
