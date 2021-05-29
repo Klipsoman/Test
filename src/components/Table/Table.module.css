@@ -1,5 +1,5 @@
 .tableWrapper{
-    height: 89%;
+    height: 85%;
     padding-right: 17px;
     overflow-y: hidden;
     margin-top: 20px;
@@ -55,4 +55,10 @@
 
 .asksColor{
     background-color:  #1C5;
+}
+
+@media (max-width: 768px){
+    .table{
+        width: 95%;   
+    }
 }
