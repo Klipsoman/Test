@@ -35,19 +35,25 @@ class MainContainer extends React.Component {
       glassSymbol: symbol,
     });
     axios
-      .get(`api/v3/depth?symbol=${symbol}&limit=500`)
+      .get(`/api/v3/depth?symbol=${symbol}&limit=500`)
       .then((res) => res.data)
       .then((res) => this.props.getGlassAC(res.bids, res.asks))
       .catch((err) => console.log(err));
   };
 
     componentDidMount() {
-
       const getGlassSymbol = async () => {
         try{
-        const res = await axios.get(`api/v3/depth?symbol=${this.state.glassSymbol}&limit=500`)
-        const data = await res.data
-        this.props.getGlassAC(data.bids, data.asks)
+        let res = await axios.get(`api/v3/depth?symbol=${this.state.glassSymbol}&limit=500`)
+        let data = await res.data
+        if(typeof data.bids == 'object' && data.bids != null){
+          this.props.getGlassAC(data.bids, data.asks)
+        } else {
+          console.log('change api url')
+          res = await axios.get(`https://api.binance.com/api/v3/depth?symbol=${this.state.glassSymbol}&limit=500`)
+          data = await res.data
+          this.props.getGlassAC(data.bids, data.asks)
+        }
       } catch(err) {
         console.log('Warning is: ' + err)
       } 
@@ -55,7 +61,6 @@ class MainContainer extends React.Component {
   setInterval(() => {
     getGlassSymbol()
   }, 3000);
-  
 }
 
 
